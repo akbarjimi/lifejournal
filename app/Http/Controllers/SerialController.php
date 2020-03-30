@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Serial;
-use Illuminate\Http\Request;
+use App\Models\Serial;
+use App\Http\Requests\Profile\Serials\SerialStoreRequest;
+use App\Http\Requests\Profile\Serials\SerialUpdateRequest;
 
 class SerialController extends Controller
 {
@@ -14,7 +15,9 @@ class SerialController extends Controller
      */
     public function index()
     {
-        //
+        return view('profile.serials.index', [
+            'serials' => Serial::with('user')->get(),
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class SerialController extends Controller
      */
     public function create()
     {
-        //
+        return view('profile.serials.create');
     }
 
     /**
@@ -33,15 +36,21 @@ class SerialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SerialStoreRequest $request)
     {
-        //
+        try {
+            \Auth::user()->serials()->create($request->all());
+
+            return redirect()->route('serials.index');
+        } catch (\Throwable $throwable) {
+            return redirect()->route('serials.index');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Serial  $serial
+     * @param  \App\Models\Serial  $serial
      * @return \Illuminate\Http\Response
      */
     public function show(Serial $serial)
@@ -52,34 +61,48 @@ class SerialController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Serial  $serial
+     * @param  \App\Models\Serial  $serial
      * @return \Illuminate\Http\Response
      */
     public function edit(Serial $serial)
     {
-        //
+        return view('profile.serials.edit', [
+            'serial' => $serial
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Serial  $serial
+     * @param  \App\Models\Serial  $serial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Serial $serial)
+    public function update(SerialUpdateRequest $request, Serial $serial)
     {
-        //
+        try {
+            $serial->update($request->all());
+
+            return redirect()->route('serials.index');
+        } catch (\Throwable $throwable) {
+            return redirect()->route('serials.index');
+        }        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Serial  $serial
+     * @param  \App\Models\Serial  $serial
      * @return \Illuminate\Http\Response
      */
     public function destroy(Serial $serial)
     {
-        //
+        try {
+            $serial->delete();
+
+            return redirect()->route('serials.index');
+        } catch (\Throwable $throwable) {
+            return redirect()->route('serials.index');
+        }        
     }
 }
