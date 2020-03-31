@@ -5,9 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Serials</div>
 
                 <div class="card-body">
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6">
+                        <a href="{{ route('serials.create') }}" class="btn btn-primary">
+                                {{ __('Add') }}
+                        </a>
+                        </div>
+                    </div>
+
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -21,6 +29,13 @@
                         <a href="{{ route('serials.edit', $serial) }}">
                             edit
                         </a>
+                        <a href="{{ route('serials.delete', $serial) }}">
+                            delete
+                        </a>
+                        <a href="{{ route('serials.episodes.index', $serial) }}">
+                            episodes
+                        </a>                        
+
                         </div>
                     @endforeach
                 </div>

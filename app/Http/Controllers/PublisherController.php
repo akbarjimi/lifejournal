@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Publisher;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Publishers\StorePublisherRequest;
+use App\Http\Requests\Admin\Publishers\UpdatePublisherRequest;
 
 class PublisherController extends Controller
 {
@@ -13,7 +16,9 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.publishers.index', [
+            'publishers' => Publisher::all(),
+        ]);
     }
 
     /**
@@ -23,7 +28,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.publishers.create');
     }
 
     /**
@@ -32,9 +37,11 @@ class PublisherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePublisherRequest $request)
     {
-        //
+        Publisher::create($request->all());
+
+        return redirect()->route('publishers.index');
     }
 
     /**
@@ -54,9 +61,11 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Publisher $publisher)
     {
-        //
+        return view('admin.publishers.edit', [
+            'publisher' => $publisher,
+        ]);
     }
 
     /**
@@ -66,19 +75,29 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePublisherRequest $request, Publisher $publisher)
     {
-        //
+        $publisher->update($request->all());
+
+        return redirect()->route('publishers.index');
     }
 
+    public function delete(Publisher $publisher)
+    {
+        return view('admin.publishers.delete', [
+            'publisher' => $publisher,
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Director  $director
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->delete();
+
+        return redirect()->route('publishers.index');
     }
 }

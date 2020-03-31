@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Director;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Directors\StoreDirectorRequest;
+use App\Http\Requests\Admin\Directors\UpdateDirectorRequest;
 
 class DirectorController extends Controller
 {
@@ -14,7 +15,9 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.directors.index', [
+            'directors' => Director::all(),
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.directors.create');
     }
 
     /**
@@ -33,9 +36,11 @@ class DirectorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDirectorRequest $request)
     {
-        //
+        Director::create($request->all());
+
+        return redirect()->route('directors.index');
     }
 
     /**
@@ -57,7 +62,9 @@ class DirectorController extends Controller
      */
     public function edit(Director $director)
     {
-        //
+        return view('admin.directors.edit', [
+            'director' => $director,
+        ]);
     }
 
     /**
@@ -67,11 +74,19 @@ class DirectorController extends Controller
      * @param  \App\Models\Director  $director
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Director $director)
+    public function update(UpdateDirectorRequest $request, Director $director)
     {
-        //
+        $director->update($request->all());
+
+        return redirect()->route('directors.index');
     }
 
+    public function delete(Director $director)
+    {
+        return view('admin.directors.delete', [
+            'director' => $director,
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -80,6 +95,8 @@ class DirectorController extends Controller
      */
     public function destroy(Director $director)
     {
-        //
+        $director->delete();
+
+        return redirect()->route('directors.index');
     }
 }

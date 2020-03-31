@@ -9,6 +9,7 @@ class Episode extends Model
     protected $fillable = [
         'serial_id',
         'name',
+        'season',
         'director_id',
         'publisher_id',
     ];

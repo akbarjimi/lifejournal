@@ -15,7 +15,7 @@ class SerialController extends Controller
      */
     public function index()
     {
-        return view('profile.serials.index', [
+        return view('admin.serials.index', [
             'serials' => Serial::with('user')->get(),
         ]);
     }
@@ -27,7 +27,7 @@ class SerialController extends Controller
      */
     public function create()
     {
-        return view('profile.serials.create');
+        return view('admin.serials.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class SerialController extends Controller
      */
     public function edit(Serial $serial)
     {
-        return view('profile.serials.edit', [
+        return view('admin.serials.edit', [
             'serial' => $serial
         ]);
     }
@@ -87,6 +87,13 @@ class SerialController extends Controller
         } catch (\Throwable $throwable) {
             return redirect()->route('serials.index');
         }        
+    }
+
+    public function delete(Serial $serial)
+    {
+        return view('admin.serials.delete', [
+            'serial' => $serial,
+        ]);
     }
 
     /**

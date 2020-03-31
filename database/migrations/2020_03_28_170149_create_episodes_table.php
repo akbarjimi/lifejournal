@@ -17,6 +17,7 @@ class CreateEpisodesTable extends Migration
             $table->id();
             $table->unsignedInteger('serial_id');
             $table->string('name');
+            $table->string('season');
             $table->unsignedInteger('director_id');
             $table->unsignedInteger('publisher_id');
             $table->timestamps();
