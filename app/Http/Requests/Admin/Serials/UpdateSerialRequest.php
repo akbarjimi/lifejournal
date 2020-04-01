@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Profile\Serials;
+namespace App\Http\Requests\Admin\Serials;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SerialUpdateRequest extends FormRequest
+class UpdateSerialRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -9,7 +9,11 @@
 
                 <div class="card-body">
                     <a href="{{ route('serials.index') }}">Serial</a>
-                    
+                    <br>
+                    <a href="{{ route('publishers.index') }}">Publishers</a>
+                    <br>
+                    <a href="{{ route('directors.index') }}">Directors</a>
+                    <br>
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}

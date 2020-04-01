@@ -26,7 +26,6 @@ class StoreEpisodeRequest extends FormRequest
         return [
             'name' => 'required|string',
             'season' => 'required|integer',
-            'director_id' => 'required|integer|exists:directors,id',
             'publisher_id' => 'required|integer|exists:publishers,id',
         ];
     }

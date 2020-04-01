@@ -25,7 +25,6 @@
                     @foreach ($serials as $serial)
                         <div>
                         {{ $serial->name }}
-                        {{ $serial->user->name}}
                         <a href="{{ route('serials.edit', $serial) }}">
                             edit
                         </a>
@@ -35,7 +34,7 @@
                         <a href="{{ route('serials.episodes.index', $serial) }}">
                             episodes
                         </a>                        
-
+                        <img src="{{  $serial->getFirstMediaUrl()  }}" alt="{{ $serial->name }}">
                         </div>
                     @endforeach
                 </div>

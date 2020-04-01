@@ -49,7 +49,8 @@ class EpisodeController extends Controller
      */
     public function store(StoreEpisodeRequest $request, Serial $serial)
     {
-        $serial->episodes()->create($request->all());
+        $episode = $serial->episodes()->create($request->all());
+        $episode->directors()->sync([$request->director_id]);
 
         return \redirect()->route('serials.episodes.index', $serial);
     }
@@ -94,6 +95,7 @@ class EpisodeController extends Controller
     public function update(UpdateEpisodeRequest $request, Serial $serial, Episode $episode)
     {
         $episode->update($request->all());
+        $episode->directors()->sync($request->directors);
 
         return redirect()->route('serials.episodes.index', $serial);
     }

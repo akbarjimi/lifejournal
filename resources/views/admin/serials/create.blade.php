@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('serials.store') }}">
+                    <form method="POST" action="{{ route('serials.search') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -26,11 +26,35 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Save') }}
+                                    {{ __('Search') }}
                                 </button>
                             </div>
                         </div>
                     </form>
+
+                    @isset($result)
+                        @foreach ($result['Search'] as $serial)
+                        <div class="card">
+                            <div class="card-header">{{ $serial['Title'] }}</div>
+            
+                            <div class="card-body">
+                                {{ $serial['Year'] }}
+                                <br>
+                                <img src="{{ $serial['Poster'] }}" alt="{{ $serial['Title'] }}">
+                            </div>
+
+                        <form action="{{ route('serials.store') }}" method="POST">
+                            @csrf
+                            <input name="imdb_id" type="text" hidden value="{{ $serial['imdbID'] }}">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Add') }}
+                                </button>
+                            </div>                            
+                        </form>
+                        </div>
+                        @endforeach
+                    @endisset
                 </div>
             </div>
         </div>

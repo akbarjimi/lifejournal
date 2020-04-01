@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Episode;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Serial extends Model
+class Serial extends Model implements HasMedia
 {
+
+    use InteractsWithMedia;
+    
     protected $fillable = [
         'name',
     ];
@@ -19,7 +24,7 @@ class Serial extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function episodes()

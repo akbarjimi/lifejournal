@@ -14,11 +14,6 @@ use App\Http\Controllers\SerialController;
 use App\Http\Controllers\TranslatorController;
 use App\Http\Controllers\UserController;
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::middleware('auth')->group(function () {
     Route::resource('authors', AuthorController::class);
     Route::resource('books', BookController::class);
@@ -32,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('publishers', PublisherController::class);
     Route::resource('scores', ScoreController::class);
 
+    Route::post('serials/search', SerialController::class.'@search')->name('serials.search');
     Route::get('serials/{serial}/delete', SerialController::class.'@delete')->name('serials.delete');
     Route::resource('serials', SerialController::class);
     Route::name('serials.')->prefix('serials/{serial}')->group(function (){

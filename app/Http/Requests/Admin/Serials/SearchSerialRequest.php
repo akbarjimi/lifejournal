@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Episodes;
+namespace App\Http\Requests\Admin\Serials;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEpisodeRequest extends FormRequest
+class SearchSerialRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class UpdateEpisodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'season' => 'required|integer',
-            'publisher_id' => 'required|integer|exists:publishers,id',
+            'name' => 'required|string'
         ];
     }
 }

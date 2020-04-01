@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Director;
 
 class Episode extends Model
 {
@@ -10,7 +11,11 @@ class Episode extends Model
         'serial_id',
         'name',
         'season',
-        'director_id',
         'publisher_id',
     ];
+
+    public function directors()
+    {
+        return $this->belongsToMany(Director::class);
+    }
 }

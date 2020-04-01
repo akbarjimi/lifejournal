@@ -40,6 +40,6 @@ class User extends Authenticatable
 
     public function serials()
     {
-        return $this->hasMany(Serial::class);
+        return $this->belongsToMany(Serial::class);
     }
 }
